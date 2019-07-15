@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="taxiapp.View.SearchPlacePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="White"
+            ColumnSpacing="0"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Padding="10"
+                BackgroundColor="LightGray"
+                Orientation="Horizontal">
+                <Image
+                    HeightRequest="20"
+                    Source="ic_search"
+                    WidthRequest="20" />
+                <Entry
+                    x:Name="OriginEntry"
+                    ClassId="origin"
+                    FontAttributes="Italic"
+                    FontSize="18"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Enter Pickup"
+                    ReturnType="Search"
+                    Text="{Binding PickupText, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                Padding="10"
+                BackgroundColor="LightGray"
+                Orientation="Horizontal">
+                <Image
+                    HeightRequest="20"
+                    Source="ic_search"
+                    WidthRequest="20" />
+                <Entry
+                    x:Name="DestinationEntry"
+                    ClassId="destination"
+                    FontAttributes="Italic"
+                    FontSize="18"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Where to?"
+                    ReturnType="Search"
+                    Text="{Binding OriginText, Mode=TwoWay}" />
+            </StackLayout>
+            <ListView
+                x:Name="list"
+                Grid.Row="2"
+                ios:ListView.SeparatorStyle="FullWidth"
+                BackgroundColor="Transparent"
+                Footer=""
+                HasUnevenRows="true"
+                ItemsSource="{Binding Places}"
+                SelectedItem="{Binding PlaceSelected, Mode=TwoWay}"
+                SeparatorColor="Gray"
+                VerticalOptions="FillAndExpand">
+                <ListView.Triggers>
+                    <DataTrigger
+                        Binding="{Binding ShowRecentPlaces}"
+                        TargetType="ListView"
+                        Value="True">
+                        <Setter Property="ItemsSource" Value="{Binding RecentPlaces}" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding ShowRecentPlaces}"
+                        TargetType="ListView"
+                        Value="False">
+                        <Setter Property="ItemsSource" Value="{Binding Places}" />
+                    </DataTrigger>
+                </ListView.Triggers>
+                <ListView.Header>
+                    <StackLayout x:Name="recentSearchText" IsVisible="{Binding ShowRecentPlaces}">
+                        <Label
+                            x:Name="recentSearch"
+                            Margin="20,10"
+                            FontAttributes="Bold"
+                            LineBreakMode="WordWrap"
+                            Text="History" />
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid
+                                Padding="15"
+                                ColumnSpacing="15"
+                                RowSpacing="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    HeightRequest="20"
+                                    Source="ic_location"
+                                    VerticalOptions="Start"
+                                    WidthRequest="20" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    LineBreakMode="MiddleTruncation"
+                                    Text="{Binding StructuredFormatting.MainText}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    LineBreakMode="MiddleTruncation"
+                                    Text="{Binding StructuredFormatting.SecondaryText}"
+                                    TextColor="Gray" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

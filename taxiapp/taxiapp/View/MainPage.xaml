@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="taxiapp.View.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:taxiapp"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    CalculateCommand="{Binding CalculateRouteCommand}"
+    NavigationPage.BackButtonTitle=""
+    NavigationPage.HasNavigationBar="false"
+    UpdateCommand="{Binding UpdatePositionCommand}">
+    <Grid>
+        <maps:Map
+            x:Name="mapn"
+            HeightRequest="100"
+            MyLocationEnabled="True"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="960" />
+        <StackLayout
+            x:Name="searchLayout"
+            Margin="30,50,30,0"
+            BackgroundColor="SkyBlue"
+            Orientation="Vertical"
+            VerticalOptions="Start">
+            <SearchBar
+                Margin="2"
+                BackgroundColor="White"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                IsEnabled="False"
+                Placeholder="Search Here"
+                PlaceholderColor="Black"
+                VerticalOptions="Fill" />
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEnterAddressTapped" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+    </Grid>
+</ContentPage>
